@@ -86,6 +86,9 @@ DATABASES = {
         'PASSWORD': 'weibo_QWer', #你的数据库密码
         'HOST': 'gz-cdb-h25tz5ek.sql.tencentcdb.com', #你的数据库主机，留空默认为localhost
         'PORT': '62581', #你的数据库端口
+        'OPTIONS': {
+            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+        }
     }
 }
 

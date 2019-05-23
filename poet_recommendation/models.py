@@ -1,7 +1,7 @@
 from django.db import models
 
-class PoemAuthor(models.Model):
 
+class PoemAuthor(models.Model):
     class Meta:
         db_table = 'poems_author'
 
@@ -12,7 +12,6 @@ class PoemAuthor(models.Model):
 
 
 class PoetryAuthor(models.Model):
-
     class Meta:
         db_table = 'poetry_author'
     id = models.AutoField(primary_key=True)
