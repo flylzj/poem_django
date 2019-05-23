@@ -1,0 +1,121 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>诗词推荐{{ static }}</title>
+      <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+  </head>
+  <body>
+    <div id="panel">
+      <div class="header">
+        诗词天地
+        <div class="toggle-button">
+            <svg
+            t="1558608744759"
+            class="icon"
+            style=""
+            viewBox="0 0 1024 1024"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            p-id="807"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            width="22"
+            height="22"
+          >
+            <defs><style type="text/css"></style></defs>
+            <path
+              d="M992 160H32a32 32 0 0 1 0-64h960a32 32 0 0 1 0 64zM992 544H32a32 32 0 0 1 0-64h960a32 32 0 0 1 0 64zM992 928H32a32 32 0 0 1 0-64h960a32 32 0 0 1 0 64z"
+              p-id="808"
+            ></path>
+          </svg>
+        </div>
+      </div>
+      <div class="nav">
+        <a href="{% url 'poet:poet_index' %}">大艺术家</a>
+        <a href="{% url 'poem:poem_index' %}">每日推荐</a>
+        <a href="">为你写诗</a>
+      </div>
+      <div class="content list-group-item-info" style="height: 100%;width:100%;display: inline-block">
+          {% if poem_list %}
+            <ul class="list-group">
+                {% for poem in poem_list %}
+                    <li class="list-group-item list-group-item-info" style="text-align: center">
+                        <p style="display: inline-block;text-align: center">{{ poem.title }}</p>
+                        <br>
+                        <p style="display: inline-block;text-align: center">{{ poem.author.name }}</p>
+                        {% for line in poem.content_as_line %}
+                            <p>{{ line }}</p>
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+          {% elif poet_list %}
+            <ul class="list-group list-group-item-info" style="position: absolute;top: 90px;bottom: 0;width: 100%;">
+                {% for poet in poet_list %}
+                    <li class="list-group-item list-group-item-info"><a href="{% url 'poet:poet' poet.id %}" style="width:100%;display: inline-block;text-align: center">{{ poet.name }}</a> </li>
+                {% endfor %}
+            </ul>
+          {% elif poem %}
+              <div style="text-align: center">
+                  <p>{{ poem.title }}</p>
+                  <p>{{ poem.author.name }}</p>
+                  {% for line in poem.content_as_line %}
+                      <p>{{ line }}</p>
+                  {% endfor %}
+              </div>
+          {% elif poet %}
+              <div>
+                  <p>{{ poet.name }}</p>
+                  <p>个人简介：{{ poet.intro }}</p>
+                  <p>ta的作品：</p>
+                  {% for poem in poet.poems.all %}
+                      <li><a href="{% url 'poem:poem' poem.id %}">{{ poem.title }}</a></li>
+                  {% endfor %}
+              </div>
+          {% elif search_result %}
+              <div>
+
+              </div>
+          {% else %}
+            <p>暂无内容</p>
+        {% endif %}
+      </div>
+    </div>
+    <div id="menu" class="list-group-item-success">
+        <div class="search" style="">
+            <input id='search' type="text" placeholder="Search for..." style="width: 140px;padding: 3px;">
+
+            <button class="btn btn-default" style="background:cornflowerblue;height: 32px;line-height: 10px;margin-bottom:5px" type="button" onclick="search()">Go!</button>
+
+        </div>
+        <div class="part1"><a href="{% url 'poet:poet_index' %}">大艺术家</a></div>
+        <div class="part2"><a href="{% url 'poem:poem_index' %}">每日推荐</a></div>
+        <div class="part3">为你写诗</div>
+    </div>
+    <script src="{% static 'js/slide.js' %}"></script>
+    <script>
+      var slideout = new Slideout({
+        panel: document.getElementById("panel"),
+        menu: document.getElementById("menu"),
+        padding: 256,
+        tolerance: 70
+      });
+
+      document
+        .querySelector(".toggle-button")
+        .addEventListener("click", function() {
+          slideout.toggle();
+        });
+      function search() {
+          text = document.getElementById('search').value;
+          if(text){
+              window.location.href = "/search/" + text + "/"
+          }
+      }
+    </script>
+  </body>
+</html>

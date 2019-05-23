@@ -26,7 +26,8 @@ SECRET_KEY = 'l#k2c5%fy4$01x7r$5zex5@_pp0lbhrssfyrvyqh$+rtptj9xa'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "120.24.66.220"
+    "120.24.66.220",
+    "127.0.0.1"
 ]
 
 
@@ -35,13 +36,14 @@ ALLOWED_HOSTS = [
 INSTALLED_APPS = [
     'hide_head_poem.apps.HideHeadPoemConfig',
     'poem_recommendation.apps.PoemRecommendationConfig',
-    'poet_recommendation.apps.PoetRecommendationConfig'
+    'poet_recommendation.apps.PoetRecommendationConfig',
+    'search.apps.SearchConfig',
     # 'django.contrib.admin',
     # 'django.contrib.auth',
     # 'django.contrib.contenttypes',
     # 'django.contrib.sessions',
     # 'django.contrib.messages',
-    # 'django.contrib.staticfiles',
+    'django.contrib.staticfiles',
 ]
 
 # MIDDLEWARE = [
@@ -118,3 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]

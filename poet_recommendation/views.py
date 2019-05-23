@@ -5,7 +5,7 @@ import random
 
 
 class PoetIndexView(generic.ListView):
-    template_name = '../templates/main.html'
+    template_name = '../templates/index.html'
     context_object_name = 'poet_list'
 
     def get_queryset(self):
@@ -15,7 +15,7 @@ class PoetIndexView(generic.ListView):
 
 
 class PoetView(generic.DetailView):
-    template_name = 'poet_recommendation/poet.html'
+    template_name = '../templates/index.html'
     model = Poet
     context_object_name = 'poet'
 

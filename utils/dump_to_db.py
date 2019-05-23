@@ -24,6 +24,19 @@ class Dumper(object):
             return None
         return res[0]
 
+    def dump_poem_to_file(self):
+        cur = self.conn.cursor()
+        cur.execute("SELECT COUNT(*) FROM poem")
+        count = cur.fetchone()[0]
+        print(count)
+        LIMIT = 10000
+        OFFSET = 0
+        while OFFSET < count:
+            sql = "SELECT content from poem LIMIT {} OFFSET {} ".format(LIMIT, OFFSET)
+            cur.execute(sql)
+            for content in cur.fetchall():
+                print(content)
+
     def read_excel(self, filename):
         self.wb = openpyxl.load_workbook(filename)
         sheet = self.wb.active
@@ -40,6 +53,18 @@ class Dumper(object):
         self.wb = openpyxl.load_workbook(filename)
         sheet = self.wb.active
         for row in sheet.iter_rows(min_row=2):
+            yield {
+                "title": row[2].value,
+                "content": row[3].value,
+                "yunlv_rule": row[4].value,
+                "poem_type": "poetry",
+                "author": row[5].value,
+            }
+
+    def read_poetry(self, filename, min_row, max_row):
+        self.wb = openpyxl.load_workbook(filename)
+        sheet = self.wb.active
+        for row in sheet.iter_rows(min_row=min_row, max_row=max_row):
             yield {
                 "title": row[2].value,
                 "content": row[3].value,
@@ -74,7 +99,9 @@ class Dumper(object):
 
 if __name__ == '__main__':
     d = Dumper()
-    poem_path = "C:/Users/lzj/Desktop/poetry.xlsx"
-    # print(d.get_poet_id('苏'))
-    d.dump(poem_path, d.read_poetry_excel, 'poetry.sql')
+    d.dump_poem_to_file()
+    # poem_path = "C:/Users/lzj/Desktop/poetry.xlsx"
+    # # print(d.get_poet_id('苏'))
+    # d.dump(poem_path, d.read_poetry_excel, 'poetry.sql')
+
 

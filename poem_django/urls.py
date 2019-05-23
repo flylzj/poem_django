@@ -17,5 +17,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('poem/', include('poem_recommendation.urls')),
-    path('poet/', include('poet_recommendation.urls'))
+    path('poet/', include('poet_recommendation.urls')),
+    path('search/', include('search.urls'))
 ]
