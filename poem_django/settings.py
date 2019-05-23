@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'poem_django.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'weibo',    #你的数据库名称
+        'NAME': 'poem',    #你的数据库名称
         'USER': 'weibo',   #你的数据库用户名
         'PASSWORD': 'weibo_QWer', #你的数据库密码
         'HOST': 'gz-cdb-h25tz5ek.sql.tencentcdb.com', #你的数据库主机，留空默认为localhost

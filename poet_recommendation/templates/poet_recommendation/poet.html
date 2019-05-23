@@ -1,0 +1,8 @@
+{% if poet %}
+    <p>{{ poet.name }}</p>
+    <p>个人简介：{{ poet.intro }}</p>
+    <p>ta的作品：</p>
+    {% for poem in poet.poems.all %}
+        <li><a href="{% url 'poem:poem' poem.id %}">{{ poem.title }}</a></li>
+    {% endfor %}
+{% endif %}

@@ -16,5 +16,6 @@ Including another URLconf
 from django.urls import path, include
 
 urlpatterns = [
-    path('index/', include('poem_recommendation.urls'))
+    path('poem/', include('poem_recommendation.urls')),
+    path('poet/', include('poet_recommendation.urls'))
 ]

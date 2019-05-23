@@ -1,0 +1,21 @@
+{% load static %}
+<html lang="zh">
+<head>
+    <title>诗词推荐</title>
+</head>
+{% if poem_list %}
+    <ul>
+        {% for poem in poem_list %}
+            <li><a href="{% url 'poem:poem' poem.id %}">{{ poem.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% elif poet_list %}
+    <ul>
+        {% for poet in poet_list %}
+            <li><a href="{% url 'poet:poet' poet.id %}">{{ poet.name }}</a> </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>暂无推荐</p>
+{% endif %}
+</html>
