@@ -26,16 +26,23 @@ class Dumper(object):
 
     def dump_poem_to_file(self):
         cur = self.conn.cursor()
-        cur.execute("SELECT COUNT(*) FROM poem")
+        cur.execute("SELECT COUNT(*) FROM poem where poem_type='poetry'")
         count = cur.fetchone()[0]
         print(count)
         LIMIT = 10000
         OFFSET = 0
+        f = open('zzcf.txt', 'w', encoding='utf-8')
         while OFFSET < count:
-            sql = "SELECT content from poem LIMIT {} OFFSET {} ".format(LIMIT, OFFSET)
+            print(OFFSET)
+            sql = "SELECT content from poem where poem_type='poetry' LIMIT {} OFFSET {} ".format(LIMIT, OFFSET)
             cur.execute(sql)
             for content in cur.fetchall():
-                print(content)
+                content = content[0].replace('|', '')
+                f.write(content)
+            f.write('\n')
+            OFFSET += 10000
+        f.close()
+
 
     def read_excel(self, filename):
         self.wb = openpyxl.load_workbook(filename)

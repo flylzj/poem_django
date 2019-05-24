@@ -1,0 +1,8 @@
+{% extends 'index.html' %}
+{% block content %}
+{% if search_result %}
+    <p>查找结果</p>
+{% else %}
+    <p>为搜索到相关内容</p>
+{% endif %}
+{% endblock %}

@@ -1,8 +1,21 @@
-{% if poet %}
-    <p>{{ poet.name }}</p>
-    <p>个人简介：{{ poet.intro }}</p>
-    <p>ta的作品：</p>
-    {% for poem in poet.poems.all %}
-        <li><a href="{% url 'poem:poem' poem.id %}">{{ poem.title }}</a></li>
-    {% endfor %}
+{% extends 'index.html' %}
+{% block content %}
+{% if poet_list %}
+    <ul class="list-group list-group-item-info">
+        {% for poet in poet_list %}
+            <li class="list-group-item list-group-item-info"><a href="{% url 'poet:poet' poet.id %}" style="width:100%;display: inline-block;text-align: center">{{ poet.name }}</a> </li>
+        {% endfor %}
+    </ul>
+{% elif poet %}
+    <div>
+        <p>{{ poet.name }}</p>
+        <p>个人简介：{{ poet.intro }}</p>
+        <p>ta的作品：</p>
+        {% for poem in poet.poems.all %}
+            <li class="list-group-item list-group-item-info"  style="text-align: left;padding-left: 48%"><a href="{% url 'poem:poem' poem.id %}">{{ poem.title }}</a></li>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>暂无推荐</p>
 {% endif %}
+{% endblock %}

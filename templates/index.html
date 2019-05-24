@@ -37,64 +37,20 @@
       <div class="nav">
         <a href="{% url 'poet:poet_index' %}">大艺术家</a>
         <a href="{% url 'poem:poem_index' %}">每日推荐</a>
-        <a href="">为你写诗</a>
+        <a href="{% url 'hide_head:head_index' %}">为你写诗</a>
       </div>
-      <div class="content list-group-item-info" style="height: 100%;width:100%;display: inline-block">
-          {% if poem_list %}
-            <ul class="list-group">
-                {% for poem in poem_list %}
-                    <li class="list-group-item list-group-item-info" style="text-align: center">
-                        <p style="display: inline-block;text-align: center">{{ poem.title }}</p>
-                        <br>
-                        <p style="display: inline-block;text-align: center">{{ poem.author.name }}</p>
-                        {% for line in poem.content_as_line %}
-                            <p>{{ line }}</p>
-                        {% endfor %}
-                    </li>
-                {% endfor %}
-            </ul>
-          {% elif poet_list %}
-            <ul class="list-group list-group-item-info" style="position: absolute;top: 90px;bottom: 0;width: 100%;">
-                {% for poet in poet_list %}
-                    <li class="list-group-item list-group-item-info"><a href="{% url 'poet:poet' poet.id %}" style="width:100%;display: inline-block;text-align: center">{{ poet.name }}</a> </li>
-                {% endfor %}
-            </ul>
-          {% elif poem %}
-              <div style="text-align: center">
-                  <p>{{ poem.title }}</p>
-                  <p>{{ poem.author.name }}</p>
-                  {% for line in poem.content_as_line %}
-                      <p>{{ line }}</p>
-                  {% endfor %}
-              </div>
-          {% elif poet %}
-              <div>
-                  <p>{{ poet.name }}</p>
-                  <p>个人简介：{{ poet.intro }}</p>
-                  <p>ta的作品：</p>
-                  {% for poem in poet.poems.all %}
-                      <li><a href="{% url 'poem:poem' poem.id %}">{{ poem.title }}</a></li>
-                  {% endfor %}
-              </div>
-          {% elif search_result %}
-              <div>
-
-              </div>
-          {% else %}
-            <p>暂无内容</p>
-        {% endif %}
+      <div class="content list-group-item-info" style="height: 100%;width:100%;display: inline-block;text-align: center;position: absolute;top: 90px;bottom: 0;">
+          {% block content %}{% endblock %}
       </div>
     </div>
     <div id="menu" class="list-group-item-success">
         <div class="search" style="">
             <input id='search' type="text" placeholder="Search for..." style="width: 140px;padding: 3px;">
-
             <button class="btn btn-default" style="background:cornflowerblue;height: 32px;line-height: 10px;margin-bottom:5px" type="button" onclick="search()">Go!</button>
-
         </div>
         <div class="part1"><a href="{% url 'poet:poet_index' %}">大艺术家</a></div>
         <div class="part2"><a href="{% url 'poem:poem_index' %}">每日推荐</a></div>
-        <div class="part3">为你写诗</div>
+        <div class="part3"><a href="{% url 'hide_head:head_index' %}"></a>为你写诗</div>
     </div>
     <script src="{% static 'js/slide.js' %}"></script>
     <script>
@@ -114,6 +70,13 @@
           text = document.getElementById('search').value;
           if(text){
               window.location.href = "/search/" + text + "/"
+          }
+      }
+      function hide_head(){
+          text = document.getElementById('hide_head').value;
+          console.log(text);
+          if(text){
+              window.location.href = "/hide-head/" + text + "/"
           }
       }
     </script>

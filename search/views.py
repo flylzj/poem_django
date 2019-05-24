@@ -13,11 +13,11 @@ class SearchView(generic.View):
         poem_list = Poem.objects.filter(content__contains=text)
         poet_list = Poet.objects.filter(name__contains=text)
         context = {
-            "poet_list": poet_list
+            "search_result": ""
         }
         return render(
             request,
-            '../templates/index.html',
+            'search/search.html',
             context
         )
 

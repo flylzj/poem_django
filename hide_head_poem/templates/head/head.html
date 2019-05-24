@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block content %}
+    <div class="search" style="">
+        <input id='hide_head' type="text" placeholder="Search for..." style="width: 140px;padding: 3px;">
+        <button class="btn btn-default" style="background:cornflowerblue;height: 32px;line-height: 10px;margin-bottom:5px" type="button" onclick="hide_head()">Go!</button>
+    </div>
+{% if lines %}
+    {% for line in lines %}
+    <p>{{ line }}</p>
+    {% endfor %}
+{% endif %}
+{% endblock %}

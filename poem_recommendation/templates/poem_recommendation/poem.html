@@ -1,8 +1,27 @@
-{% load static %}
-{% if poem %}
-    <p>标题：{{ poem.title }}</p>
-    <p>作者：{{ poem.author.name }}</p>
-    {% for line in poem.content_as_line %}
-        <p>{{ line }}</p>
-    {% endfor %}
+{% extends 'index.html' %}
+{% block content %}
+{% if poem_list %}
+    <ul class="list-group">
+        {% for poem in poem_list %}
+            <li class="list-group-item list-group-item-info" style="text-align: center">
+                <p style="display: inline-block;text-align: center">{{ poem.title }}</p>
+                <br>
+                <p style="display: inline-block;text-align: center">{{ poem.author.name }}</p>
+                {% for line in poem.content_as_line %}
+                    <p>{{ line }}</p>
+                {% endfor %}
+            </li>
+        {% endfor %}
+    </ul>
+{% elif poem %}
+    <div style="text-align: center">
+        <p>{{ poem.title }}</p>
+        <p>{{ poem.author.name }}</p>
+        {% for line in poem.content_as_line %}
+            <p>{{ line }}</p>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>暂无推荐</p>
 {% endif %}
+{% endblock %}
