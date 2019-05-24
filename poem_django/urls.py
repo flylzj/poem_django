@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path, include
+from poet_recommendation.views import PoetIndexView
 
 urlpatterns = [
+    path('', PoetIndexView.as_view(), name="index"),
     path('poem/', include('poem_recommendation.urls')),
     path('poet/', include('poet_recommendation.urls')),
     path('search/', include('search.urls')),
