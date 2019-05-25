@@ -1,8 +1,28 @@
 {% extends 'index.html' %}
 {% block content %}
-{% if search_result %}
-    <p>查找结果</p>
+    <p style="text-align: left">查找结果:</p>
+    {% if poet_list or poem_list %}
+        {% if poet_list %}
+            <p style="text-align: left">找到的诗人：</p>
+            <ul class="list-group-item-info">
+            {% for poet in poet_list %}
+                <li class="list-group-item-info" style="text-align: center;margin-bottom: 10px">
+                    <a href="{% url 'poet:poet' poet.id %}" style="width:100%;display: inline-block;text-align: center">{{ poet.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if poem_list %}
+            <p style="text-align: left">找到的诗：</p>
+            <ul class="list-group-item-info">
+                {% for poem in poem_list %}
+                    <li class="list-group-item-info" style="text-align: center;margin-bottom: 10px">
+                        <a href="{% url 'poem:poem' poem.id %}" style="width:100%;display: inline-block;text-align: center">{{ poem.title }}</a>
+                    </li>
+                {% endfor %}
+        {% endif %}
+    </ul>
 {% else %}
-    <p>为搜索到相关内容</p>
+    <p>未搜索到相关内容</p>
 {% endif %}
 {% endblock %}
