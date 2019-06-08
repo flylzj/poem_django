@@ -2,13 +2,16 @@
 {% block content %}
 {% if poem_list %}
     <ul class="list-group">
+{#        <li class="list-group-item list-group-item-info" style="text-align: center">#}
+{#            <p><a href="../../../static/jiangnan.html">江南</a></p>#}
+{#            <p style="display: inline-block;text-align: center">汉乐府</p>#}
+{#            <p>江南可采莲，莲叶何田田，鱼戏莲叶间。</p>#}
+{#            <p>鱼戏莲叶东，鱼戏莲叶西，鱼戏莲叶南，鱼戏莲叶北</p>#}
+{#        </li>#}
         <li class="list-group-item list-group-item-info" style="text-align: center">
-            <p><a href="../../../static/jiangnan.html">江南</a></p>
-            <p style="display: inline-block;text-align: center">汉乐府</p>
-            <p>江南可采莲，莲叶何田田，鱼戏莲叶间。</p>
-            <p>鱼戏莲叶东，鱼戏莲叶西，鱼戏莲叶南，鱼戏莲叶北</p>
+            <p><a href="{{ r_poem.href }}">{{ r_poem.title }}</a></p>
+            <p>{{ r_poem.content }}</p>
         </li>
-
         {% for poem in poem_list %}
             <li class="list-group-item list-group-item-info" style="text-align: center">
                 <p style="display: inline-block;text-align: center"><a href="{% url 'poem:poem' poem.id %}">{{ poem.title }}</a></p>
